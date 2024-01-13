@@ -32,7 +32,20 @@ echo "Installing RunPod Serverless dependencies"
 cd /workspace/stable-diffusion-webui
 pip3 install huggingface_hub runpod
 
-echo "Downloading Deliberate v2 model"
+echo "Cloning the faceswaplab repo"
+git clone --depth=1 https://github.com/glucauze/sd-webui-faceswaplab.git extensions/sd-webui-faceswaplab
+
+echo "Installing dependencies for faceswaplab"
+cd /workspace/stable-diffusion-webui/extensions/sd-webui-faceswaplab
+pip3 install -r requirements.txt
+pip3 install -r requirements-gpu.txt
+
+echo "Installing the model for faceswaplab"
+mkdir -p /workspace/stable-diffusion-webui/models/faceswaplab
+cd /workspace/stable-diffusion-webui/models/faceswaplab
+wget https://github.com/facefusion/facefusion-assets/releases/download/models/inswapper_128.onnx
+
+echo "Downloading Last Unicorn model"
 cd /workspace/stable-diffusion-webui/models/Stable-diffusion
 wget -O unicorn.safetensors https://civitai.com/api/download/models/223670
 
